@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Interop;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
+using Chapter.Net.WPF.Theming.Internal;
 using Microsoft.Win32;
 
 namespace Chapter.Net.WPF.Theming
@@ -18,8 +19,6 @@ namespace Chapter.Net.WPF.Theming
     /// </summary>
     public static class ThemeManager
     {
-        private const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-        private const string RegistryValueName = "AppsUseLightTheme";
 
         /// <summary>
         ///     Sets the theme to use for the given window.
@@ -33,10 +32,10 @@ namespace Chapter.Net.WPF.Theming
             if (theme == WindowTheme.System)
                 theme = GetSystemTheme();
 
-            if (IsWindows10OrGreater(17763))
+            if (WindowsEnvironment.IsWindows10OrGreater(WindowsEnvironment.Windows10BuildNumber))
             {
                 var attribute = DWMWA.USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
-                if (IsWindows10OrGreater(18985))
+                if (WindowsEnvironment.IsWindows10OrGreater(WindowsEnvironment.Windows10BuildNumber20H1))
                     attribute = DWMWA.USE_IMMERSIVE_DARK_MODE;
 
                 var useDarkMode = theme == WindowTheme.Dark ? 1 : 0;
@@ -53,9 +52,9 @@ namespace Chapter.Net.WPF.Theming
         /// <returns>WindowTheme.Light or WindowTheme.Dark depending on the system configuration.</returns>
         public static WindowTheme GetSystemTheme()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
+            using (var key = Registry.CurrentUser.OpenSubKey(WindowsEnvironment.ThemeRegistryKeyPath))
             {
-                var registryValueObject = key?.GetValue(RegistryValueName);
+                var registryValueObject = key?.GetValue(WindowsEnvironment.ThemeRegistryValueName);
                 if (registryValueObject == null)
                     return WindowTheme.Light;
                 var registryValue = (int)registryValueObject;
@@ -64,9 +63,7 @@ namespace Chapter.Net.WPF.Theming
             }
         }
 
-        private static bool IsWindows10OrGreater(int build)
         {
-            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
         }
     }
 }
