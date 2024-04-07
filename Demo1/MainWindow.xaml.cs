@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Chapter.Net.WPF.Theming;
 
-namespace Demo;
+namespace Demo1;
 
 public partial class MainWindow
 {

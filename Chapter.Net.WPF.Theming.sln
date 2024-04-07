@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapter.Net.WPF.Theming", "Chapter.Net.WPF.Theming\Chapter.Net.WPF.Theming.csproj", "{6D9925A2-126D-4392-8F9A-D17E052FE729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{B8D4408B-4AA6-40AD-ADB5-81A641F86D1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo1", "Demo1\Demo1.csproj", "{B8D4408B-4AA6-40AD-ADB5-81A641F86D1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
