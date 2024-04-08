@@ -7,6 +7,7 @@
 using System;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
 using Chapter.Net.WPF.Theming.Internal;
@@ -19,6 +20,11 @@ namespace Chapter.Net.WPF.Theming
     /// </summary>
     public static class ThemeManager
     {
+        /// <summary>
+        ///     Defines the RequestTheme attached dependency property.
+        /// </summary>
+        public static readonly DependencyProperty RequestThemeProperty =
+            DependencyProperty.RegisterAttached("RequestTheme", typeof(WindowTheme), typeof(ThemeManager), new PropertyMetadata(OnRequestThemeChanged));
 
         /// <summary>
         ///     Sets the theme to use for the given window.
@@ -63,7 +69,59 @@ namespace Chapter.Net.WPF.Theming
             }
         }
 
+        /// <summary>
+        ///     Gets the attached the requested theme from a window.
+        /// </summary>
+        /// <param name="obj">The window.</param>
+        /// <returns>The attached theme.</returns>
+        public static WindowTheme GetRequestTheme(DependencyObject obj)
         {
+            return (WindowTheme)obj.GetValue(RequestThemeProperty);
+        }
+
+        /// <summary>
+        ///     Gets the attached the requested theme from a window.
+        /// </summary>
+        /// <param name="obj">The window.</param>
+        /// <returns>The attached theme.</returns>
+        public static void SetRequestTheme(DependencyObject obj, WindowTheme value)
+        {
+            obj.SetValue(RequestThemeProperty, value);
+        }
+
+        private static void OnRequestThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is Window window))
+                throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
+
+            if (window.IsInitialized)
+                SetTheme(window, (WindowTheme)e.NewValue);
+            else
+                window.SourceInitialized += OnSourceInitialized;
+        }
+
+        private static void OnSourceInitialized(object sender, EventArgs e)
+        {
+            var window = (Window)sender;
+            window.SourceInitialized -= OnSourceInitialized;
+            SetTheme(window, GetRequestTheme(window));
+        }
+
+        private static void SetTheme(Window window, WindowTheme theme)
+        {
+            if (theme == WindowTheme.System)
+                theme = GetSystemTheme();
+
+            SetWindowTheme(window, theme);
+            switch (theme)
+            {
+                case WindowTheme.Light:
+                    window.Background = new SolidColorBrush { Color = Color.FromRgb(243, 243, 243) };
+                    break;
+                case WindowTheme.Dark:
+                    window.Background = new SolidColorBrush { Color = Color.FromRgb(32, 32, 32) };
+                    break;
+            }
         }
     }
 }
