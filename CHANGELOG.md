@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added AccentColorProvider to read the windows accent colors.
 - Added AccentBrush markup extension to use the accent colors on UI controls directly.
 - Added AccentColor markup extension to use the accent colors within color brushes.
+- Added color set change observer to get informed when the theme or accent color on windows got changed.
 ### Supported .Net Versions
 - .Net Core 3.0
 - .Net Framework 4.5
