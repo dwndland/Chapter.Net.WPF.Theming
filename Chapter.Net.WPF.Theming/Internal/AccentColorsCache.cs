@@ -7,7 +7,7 @@
 using System;
 using System.Windows.Media;
 
-namespace Chapter.Net.WPF.Theming.Accents.Internal
+namespace Chapter.Net.WPF.Theming.Internal
 {
     internal static class AccentColorsCache
     {

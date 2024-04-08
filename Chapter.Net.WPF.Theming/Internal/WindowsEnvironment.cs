@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Chapter.Net.WPF.Theming.Theming.Internal
+namespace Chapter.Net.WPF.Theming.Internal
 {
     internal static class WindowsEnvironment
     {

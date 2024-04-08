@@ -8,22 +8,31 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Chapter.Net.WinAPI.Data;
-using Chapter.Net.WPF.Theming.Accents.Internal;
+using Chapter.Net.WPF.Theming.Internal;
 
 // ReSharper disable once CheckNamespace
 
 namespace Chapter.Net.WPF.Theming
 {
-    /// <inheritdoc />
-    public class ColorSetChangeObserver : IColorSetChangeObserver
+    /// <summary>
+    ///     Observes when windows is changing its theme or accent color.
+    /// </summary>
+    public static class ColorSetChangeObserver
     {
-        private WindowObserver _observer;
+        private static WindowObserver _observer;
 
-        /// <inheritdoc />
-        public event EventHandler SystemColorsChanged;
+        /// <summary>
+        ///     Raised when on windows the theme or accent color got changed.
+        /// </summary>
+        public static event EventHandler SystemColorsChanged;
 
-        /// <inheritdoc />
-        public void StartListenForColorChanges(Window window)
+        /// <summary>
+        ///     Starts listen for theme or color changes on windows.
+        /// </summary>
+        /// <remarks>When observed, the SystemColorsChanged is raised and the AccentColorsCache gets reset.</remarks>
+        /// <param name="window">The application window.</param>
+        /// <exception cref="ArgumentNullException">The window cannot be null.</exception>
+        public static void StartListenForColorChanges(Window window)
         {
             if (window == null)
                 throw new ArgumentNullException(nameof(window));
@@ -35,20 +44,16 @@ namespace Chapter.Net.WPF.Theming
             }
         }
 
-        /// <inheritdoc />
-        public void StopListenForColorChanges()
+        /// <summary>
+        ///     Stops listen for theme or color changes on windows.
+        /// </summary>
+        public static void StopListenForColorChanges()
         {
             _observer?.ClearCallbacks();
             _observer = null;
         }
 
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            StopListenForColorChanges();
-        }
-
-        private void OnWindowSettingChanged(NotifyEventArgs obj)
+        private static void OnWindowSettingChanged(NotifyEventArgs obj)
         {
             if (obj.MessageId == WM.WININICHANGE)
             {

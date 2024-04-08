@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
-using Chapter.Net.WPF.Theming.Accents.Internal;
+using Chapter.Net.WPF.Theming.Internal;
 
 // ReSharper disable once CheckNamespace
 
