@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added theme manager to get and set the window theme either explicit or by system.
 - Added the possibility to attach the requested theme to each window to have it applied automatically.
+- Added ThemedWindow object for more easy usage.
 ### Supported .Net Versions
 - .Net Core 3.0
 - .Net Framework 4.5

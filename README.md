@@ -6,7 +6,10 @@
 Brings features to work with the windows themes and accent colors under WPF.
 
 ## Features
-- **Feature:** Description
+TODO Topics:
+Set theme for a window, manual or automatic
+Switch theme resources
+Access the windows accent colors
 
 ## Getting Started
 
