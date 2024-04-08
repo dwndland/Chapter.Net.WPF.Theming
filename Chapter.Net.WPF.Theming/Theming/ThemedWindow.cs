@@ -9,6 +9,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
+// ReSharper disable once CheckNamespace
+
 namespace Chapter.Net.WPF.Theming
 {
     /// <summary>

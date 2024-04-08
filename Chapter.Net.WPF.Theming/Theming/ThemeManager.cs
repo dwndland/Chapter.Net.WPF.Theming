@@ -10,8 +10,10 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
-using Chapter.Net.WPF.Theming.Internal;
+using Chapter.Net.WPF.Theming.Theming.Internal;
 using Microsoft.Win32;
+
+// ReSharper disable once CheckNamespace
 
 namespace Chapter.Net.WPF.Theming
 {
