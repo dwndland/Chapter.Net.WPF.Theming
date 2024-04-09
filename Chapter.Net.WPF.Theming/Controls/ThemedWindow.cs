@@ -67,7 +67,7 @@ namespace Chapter.Net.WPF.Theming
         {
             var theme = RequestTheme;
             if (theme == WindowTheme.System)
-                theme = ThemeManager.GetSystemTheme();
+                theme = SystemThemeProvider.GetSystemTheme();
 
             ThemeManager.SetWindowTheme(this, theme);
             switch (theme)

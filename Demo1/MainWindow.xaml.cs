@@ -20,7 +20,7 @@ public partial class MainWindow
 
     protected override void OnSourceInitialized(EventArgs e)
     {
-        var systemTheme = ThemeManager.GetSystemTheme();
+        var systemTheme = SystemThemeProvider.GetSystemTheme();
         ThemeManager.SetWindowTheme(this, systemTheme);
         SetBackgroundColor(systemTheme);
 
@@ -43,7 +43,7 @@ public partial class MainWindow
     {
         if (theme == WindowTheme.System)
         {
-            theme = ThemeManager.GetSystemTheme();
+            theme = SystemThemeProvider.GetSystemTheme();
         }
 
         switch (theme)
