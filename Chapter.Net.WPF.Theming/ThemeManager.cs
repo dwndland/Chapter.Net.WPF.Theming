@@ -11,7 +11,6 @@ using System.Windows.Media;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
 using Chapter.Net.WPF.Theming.Internal;
-using Microsoft.Win32;
 
 // ReSharper disable once CheckNamespace
 
@@ -38,7 +37,7 @@ namespace Chapter.Net.WPF.Theming
         public static bool SetWindowTheme(Window window, WindowTheme theme)
         {
             if (theme == WindowTheme.System)
-                theme = GetSystemTheme();
+                theme = SystemThemeProvider.GetSystemTheme();
 
             if (WindowsEnvironment.IsWindows10OrGreater(WindowsEnvironment.Windows10BuildNumber))
             {
@@ -52,23 +51,6 @@ namespace Chapter.Net.WPF.Theming
             }
 
             return false;
-        }
-
-        /// <summary>
-        ///     Gets the theme the system is configured to.
-        /// </summary>
-        /// <returns>WindowTheme.Light or WindowTheme.Dark depending on the system configuration.</returns>
-        public static WindowTheme GetSystemTheme()
-        {
-            using (var key = Registry.CurrentUser.OpenSubKey(WindowsEnvironment.ThemeRegistryKeyPath))
-            {
-                var registryValueObject = key?.GetValue(WindowsEnvironment.ThemeRegistryValueName);
-                if (registryValueObject == null)
-                    return WindowTheme.Light;
-                var registryValue = (int)registryValueObject;
-
-                return registryValue > 0 ? WindowTheme.Light : WindowTheme.Dark;
-            }
         }
 
         /// <summary>
@@ -112,7 +94,7 @@ namespace Chapter.Net.WPF.Theming
         private static void SetTheme(Window window, WindowTheme theme)
         {
             if (theme == WindowTheme.System)
-                theme = GetSystemTheme();
+                theme = SystemThemeProvider.GetSystemTheme();
 
             SetWindowTheme(window, theme);
             switch (theme)
