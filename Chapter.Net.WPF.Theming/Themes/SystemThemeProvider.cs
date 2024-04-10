@@ -6,6 +6,8 @@
 
 using Microsoft.Win32;
 
+// ReSharper disable once CheckNamespace
+
 namespace Chapter.Net.WPF.Theming
 {
     /// <summary>
