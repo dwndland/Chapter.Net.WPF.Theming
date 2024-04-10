@@ -5,23 +5,33 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
-using Chapter.Net.WPF.Theming.Internal;
 
 // ReSharper disable once CheckNamespace
 
 namespace Chapter.Net.WPF.Theming
 {
+    /// <summary>
+    ///     Provides an accent as a brush.
+    /// </summary>
     public class AccentBrush : AccentMarkupExtension
     {
+        /// <summary>
+        ///     Creates a new AccentMarkupExtension.
+        /// </summary>
         public AccentBrush()
         {
         }
 
+        /// <summary>
+        ///     Creates a new AccentMarkupExtension.
+        /// </summary>
+        /// <param name="accent">The requested accent.</param>
         public AccentBrush(Accent accent)
             : base(accent)
         {
         }
 
+        /// <inheritdoc />
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (UseForeground)

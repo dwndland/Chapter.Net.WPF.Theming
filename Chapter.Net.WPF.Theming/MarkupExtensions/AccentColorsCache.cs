@@ -7,7 +7,9 @@
 using System;
 using System.Windows.Media;
 
-namespace Chapter.Net.WPF.Theming.Internal
+// ReSharper disable once CheckNamespace
+
+namespace Chapter.Net.WPF.Theming
 {
     internal static class AccentColorsCache
     {

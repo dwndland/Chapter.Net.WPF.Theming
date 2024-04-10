@@ -5,23 +5,33 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
-using Chapter.Net.WPF.Theming.Internal;
 
 // ReSharper disable once CheckNamespace
 
 namespace Chapter.Net.WPF.Theming
 {
+    /// <summary>
+    ///     Provides an accent as a color.
+    /// </summary>
     public class AccentColor : AccentMarkupExtension
     {
+        /// <summary>
+        ///     Creates a new AccentMarkupExtension.
+        /// </summary>
         public AccentColor()
         {
         }
 
+        /// <summary>
+        ///     Creates a new AccentMarkupExtension.
+        /// </summary>
+        /// <param name="accent">The requested accent.</param>
         public AccentColor(Accent accent)
             : base(accent)
         {
         }
 
+        /// <inheritdoc />
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (UseForeground)

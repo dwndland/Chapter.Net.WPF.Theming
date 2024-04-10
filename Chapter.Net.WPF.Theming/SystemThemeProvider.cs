@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
 
-using Chapter.Net.WPF.Theming.Internal;
 using Microsoft.Win32;
 
 namespace Chapter.Net.WPF.Theming
@@ -20,9 +19,9 @@ namespace Chapter.Net.WPF.Theming
         /// <returns>WindowTheme.Light or WindowTheme.Dark depending on the system configuration.</returns>
         public static WindowTheme GetSystemTheme()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(WindowsEnvironment.ThemeRegistryKeyPath))
+            using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
             {
-                var registryValueObject = key?.GetValue(WindowsEnvironment.ThemeRegistryValueName);
+                var registryValueObject = key?.GetValue("AppsUseLightTheme");
                 if (registryValueObject == null)
                     return WindowTheme.Light;
 

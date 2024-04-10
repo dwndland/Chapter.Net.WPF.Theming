@@ -10,7 +10,6 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
-using Chapter.Net.WPF.Theming.Internal;
 
 // ReSharper disable once CheckNamespace
 
@@ -39,10 +38,10 @@ namespace Chapter.Net.WPF.Theming
             if (theme == WindowTheme.System)
                 theme = SystemThemeProvider.GetSystemTheme();
 
-            if (WindowsEnvironment.IsWindows10OrGreater(WindowsEnvironment.Windows10BuildNumber))
+            if (IsWindows10OrGreater(17763))
             {
                 var attribute = DWMWA.USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
-                if (WindowsEnvironment.IsWindows10OrGreater(WindowsEnvironment.Windows10BuildNumber20H1))
+                if (IsWindows10OrGreater(18985))
                     attribute = DWMWA.USE_IMMERSIVE_DARK_MODE;
 
                 var useDarkMode = theme == WindowTheme.Dark ? 1 : 0;
@@ -67,6 +66,7 @@ namespace Chapter.Net.WPF.Theming
         ///     Gets the attached the requested theme from a window.
         /// </summary>
         /// <param name="obj">The window.</param>
+        /// <param name="value">The requested theme.</param>
         /// <returns>The attached theme.</returns>
         public static void SetRequestTheme(DependencyObject obj, WindowTheme value)
         {
@@ -106,6 +106,11 @@ namespace Chapter.Net.WPF.Theming
                     window.Background = new SolidColorBrush { Color = Color.FromRgb(32, 32, 32) };
                     break;
             }
+        }
+
+        private static bool IsWindows10OrGreater(int build)
+        {
+            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
         }
     }
 }
