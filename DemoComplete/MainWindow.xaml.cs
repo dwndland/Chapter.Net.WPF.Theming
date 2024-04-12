@@ -18,6 +18,9 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+
+        ThemeManager.SetCurrentTheme(WindowTheme.System);
+        SetBrushes();
     }
 
     private void ThemeSelected(object sender, SelectionChangedEventArgs e)
