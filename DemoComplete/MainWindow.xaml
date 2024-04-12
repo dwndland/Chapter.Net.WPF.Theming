@@ -1,0 +1,31 @@
+﻿<Window x:Class="DemoComplete.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:DemoControls;assembly=DemoControls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:theming="clr-namespace:Chapter.Net.WPF.Theming;assembly=Chapter.Net.WPF.Theming"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        theming:ThemeManager.ObeyThemeManager="True"
+        mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <controls:ChapterButton Margin="0,0,0,6"
+                                Click="ShowAttachedWindow"
+                                Content="Window With Attached Property" />
+        <controls:ChapterButton Margin="0,0,0,6"
+                                Click="ShowThemedWindow"
+                                Content="ThemeWindow" />
+        <controls:ChapterComboBox MinWidth="100"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="ThemeSelected">
+            <controls:ChapterComboBoxItem Tag="{x:Static theming:WindowTheme.Light}">Light</controls:ChapterComboBoxItem>
+            <controls:ChapterComboBoxItem Tag="{x:Static theming:WindowTheme.Dark}">Dark</controls:ChapterComboBoxItem>
+            <controls:ChapterComboBoxItem IsSelected="True" Tag="{x:Static theming:WindowTheme.System}">System</controls:ChapterComboBoxItem>
+        </controls:ChapterComboBox>
+    </StackPanel>
+
+</Window>

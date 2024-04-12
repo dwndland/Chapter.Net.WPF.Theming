@@ -4,10 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 
@@ -22,15 +20,13 @@ namespace Chapter.Net.WPF.Theming
         ///     Defines the RequestTheme dependency property.
         /// </summary>
         public static readonly DependencyProperty RequestThemeProperty =
-            DependencyProperty.Register(nameof(RequestTheme), typeof(WindowTheme), typeof(ThemedWindow), new PropertyMetadata(WindowTheme.System));
+            DependencyProperty.Register(nameof(RequestTheme), typeof(WindowTheme), typeof(ThemedWindow), new PropertyMetadata(OnWindowThemeChanged));
 
         /// <summary>
-        ///     Creates a new instance of ThemedWindow.
+        ///     Defines the ObeyThemeManager dependency property.
         /// </summary>
-        public ThemedWindow()
-        {
-            Loaded += OnLoaded;
-        }
+        public static readonly DependencyProperty ObeyThemeManagerProperty =
+            DependencyProperty.Register(nameof(ObeyThemeManager), typeof(bool), typeof(ThemedWindow), new PropertyMetadata(OnObeyThemeManagerChanged));
 
         /// <summary>
         ///     Gets or sets the theme the window shall have.
@@ -43,42 +39,27 @@ namespace Chapter.Net.WPF.Theming
             set => SetValue(RequestThemeProperty, value);
         }
 
-        /// <inheritdoc />
-        protected override void OnSourceInitialized(EventArgs e)
+        /// <summary>
+        ///     Gets or sets if the window has to obey the theme manager.
+        /// </summary>
+        /// <value>Default: false.</value>
+        [DefaultValue(false)]
+        public bool ObeyThemeManager
         {
-            ChangeTheme();
-
-            base.OnSourceInitialized(e);
+            get => (bool)GetValue(ObeyThemeManagerProperty);
+            set => SetValue(ObeyThemeManagerProperty, value);
         }
 
-        /// <summary>
-        ///     Callback when the window got loaded.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected virtual void OnLoaded(object sender, RoutedEventArgs e)
+        private static void OnWindowThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var window = (Window)d;
+            ThemeManager.SetRequestTheme(window, (WindowTheme)e.NewValue);
         }
 
-        /// <summary>
-        ///     Changes the current window theme to the one requested.
-        /// </summary>
-        protected virtual void ChangeTheme()
+        private static void OnObeyThemeManagerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var theme = RequestTheme;
-            if (theme == WindowTheme.System)
-                theme = SystemThemeProvider.GetSystemTheme();
-
-            ThemeManager.SetWindowTheme(this, theme);
-            switch (theme)
-            {
-                case WindowTheme.Light:
-                    Background = new SolidColorBrush { Color = Color.FromRgb(243, 243, 243) };
-                    break;
-                case WindowTheme.Dark:
-                    Background = new SolidColorBrush { Color = Color.FromRgb(32, 32, 32) };
-                    break;
-            }
+            var window = (Window)d;
+            ThemeManager.SetObeyThemeManager(window, (bool)e.NewValue);
         }
     }
 }

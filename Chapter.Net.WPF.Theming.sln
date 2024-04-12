@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapter.Net.WPF.Theming", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoControls", "DemoControls\DemoControls.csproj", "{4E627700-3099-4FBD-9556-A926FA90F6EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoComplete", "DemoComplete\DemoComplete.csproj", "{42C1C82D-BCFD-4C4D-987E-8CFE9C66A22C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +23,10 @@ Global
 		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42C1C82D-BCFD-4C4D-987E-8CFE9C66A22C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42C1C82D-BCFD-4C4D-987E-8CFE9C66A22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42C1C82D-BCFD-4C4D-987E-8CFE9C66A22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42C1C82D-BCFD-4C4D-987E-8CFE9C66A22C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
