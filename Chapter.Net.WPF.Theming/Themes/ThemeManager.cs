@@ -29,10 +29,10 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         /// <param name="window">The window to modify.</param>
         /// <param name="theme">The theme to use.</param>
-        /// <param name="setBackground">Defines if the window background shall be set as well..</param>
+        /// <param name="setBodyColors">Defines if the window background shall be set as well.</param>
         /// <remarks>The window source must be initialized.</remarks>
         /// <returns>True of the theme got applied to the window; otherwise false.</returns>
-        public static bool SetWindowTheme(Window window, WindowTheme theme, bool setBackground)
+        public static bool SetWindowTheme(Window window, WindowTheme theme, bool setBodyColors = true)
         {
             if (theme == WindowTheme.System)
                 theme = SystemThemeProvider.GetSystemTheme();
@@ -49,14 +49,16 @@ namespace Chapter.Net.WPF.Theming
                     return false;
             }
 
-            if (setBackground)
+            if (setBodyColors)
                 switch (theme)
                 {
                     case WindowTheme.Light:
                         window.Background = new SolidColorBrush { Color = Color.FromRgb(243, 243, 243) };
+                        window.Foreground = new SolidColorBrush { Color = Colors.Black };
                         break;
                     case WindowTheme.Dark:
                         window.Background = new SolidColorBrush { Color = Color.FromRgb(32, 32, 32) };
+                        window.Foreground = new SolidColorBrush { Color = Colors.White };
                         break;
                 }
 
@@ -105,7 +107,7 @@ namespace Chapter.Net.WPF.Theming
                 throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
 
             if (window.IsInitialized)
-                SetWindowTheme(window, (WindowTheme)e.NewValue, !SkipSetWindowBackgroundColor);
+                SetWindowTheme(window, (WindowTheme)e.NewValue, !SkipSetBodyColors);
             else
                 window.SourceInitialized += OnSourceInitialized;
         }
@@ -114,7 +116,7 @@ namespace Chapter.Net.WPF.Theming
         {
             var window = (Window)sender;
             window.SourceInitialized -= OnSourceInitialized;
-            SetWindowTheme(window, GetRequestTheme(window), !SkipSetWindowBackgroundColor);
+            SetWindowTheme(window, GetRequestTheme(window), !SkipSetBodyColors);
         }
 
         #endregion
@@ -163,7 +165,7 @@ namespace Chapter.Net.WPF.Theming
             window.Closed += OnClosed;
 
             if (window.IsInitialized)
-                SetWindowTheme(window, _currentTheme, !SkipSetWindowBackgroundColor);
+                SetWindowTheme(window, _currentTheme, !SkipSetBodyColors);
             else
                 window.SourceInitialized += OnObeyedWindowSourceInitialized;
         }
@@ -178,7 +180,7 @@ namespace Chapter.Net.WPF.Theming
         {
             var window = (Window)sender;
             window.SourceInitialized -= OnObeyedWindowSourceInitialized;
-            SetWindowTheme(window, _currentTheme, !SkipSetWindowBackgroundColor);
+            SetWindowTheme(window, _currentTheme, !SkipSetBodyColors);
         }
 
         /// <summary>
@@ -186,7 +188,7 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         /// <value>Default: false.</value>
         [DefaultValue(false)]
-        public static bool SkipSetWindowBackgroundColor { get; set; }
+        public static bool SkipSetBodyColors { get; set; }
 
         /// <summary>
         ///     Sets the theme to all obeying windows.
@@ -195,7 +197,7 @@ namespace Chapter.Net.WPF.Theming
         public static void SetCurrentTheme(WindowTheme theme)
         {
             _currentTheme = theme;
-            _servantWindows.ForEach(x => SetWindowTheme(x, _currentTheme, !SkipSetWindowBackgroundColor));
+            _servantWindows.ForEach(x => SetWindowTheme(x, _currentTheme, !SkipSetBodyColors));
         }
 
         /// <summary>
