@@ -22,57 +22,17 @@ namespace Chapter.Net.WPF.Theming
     /// </summary>
     public static class ThemeManager
     {
-        private static WindowTheme _currentTheme = WindowTheme.System;
-
-        /// <summary>
-        ///     Defines the RequestTheme attached dependency property.
-        /// </summary>
-        public static readonly DependencyProperty RequestThemeProperty =
-            DependencyProperty.RegisterAttached("RequestTheme", typeof(WindowTheme), typeof(ThemeManager), new PropertyMetadata(OnRequestThemeChanged));
-
-        /// <summary>
-        ///     Defines the ObeyThemeManager attached dependency property.
-        /// </summary>
-        public static readonly DependencyProperty ObeyThemeManagerProperty =
-            DependencyProperty.RegisterAttached("ObeyThemeManager", typeof(bool), typeof(ThemeManager), new PropertyMetadata(OnObeyThemeManagerChanged));
-
-        /// <summary>
-        ///     Gets or sets if the window background color shall not be set on theme change.
-        /// </summary>
-        /// <value>Default: false.</value>
-        [DefaultValue(false)]
-        public static bool SkipSetWindowBackgroundColor { get; set; }
-
-        internal static List<Window> ServantWindows { get; } = new List<Window>();
-
-        /// <summary>
-        ///     Sets the theme to all obeying windows.
-        /// </summary>
-        /// <param name="theme">The theme to use.</param>
-        public static void SetCurrentTheme(WindowTheme theme)
-        {
-            _currentTheme = theme;
-            ServantWindows.ForEach(x => SetWindowTheme(x, _currentTheme, !SkipSetWindowBackgroundColor));
-        }
-
-        /// <summary>
-        ///     Gets the current theme used on all the obeying windows.
-        /// </summary>
-        /// <returns></returns>
-        public static WindowTheme GetCurrentTheme()
-        {
-            return _currentTheme;
-        }
+        #region SetWindowTheme
 
         /// <summary>
         ///     Sets the theme to use for the given window.
         /// </summary>
         /// <param name="window">The window to modify.</param>
         /// <param name="theme">The theme to use.</param>
-        /// <param name="setBackgroundToo">Defines if the window background shall be set as well..</param>
+        /// <param name="setBackground">Defines if the window background shall be set as well..</param>
         /// <remarks>The window source must be initialized.</remarks>
         /// <returns>True of the theme got applied to the window; otherwise false.</returns>
-        public static bool SetWindowTheme(Window window, WindowTheme theme, bool setBackgroundToo)
+        public static bool SetWindowTheme(Window window, WindowTheme theme, bool setBackground)
         {
             if (theme == WindowTheme.System)
                 theme = SystemThemeProvider.GetSystemTheme();
@@ -89,7 +49,7 @@ namespace Chapter.Net.WPF.Theming
                     return false;
             }
 
-            if (setBackgroundToo)
+            if (setBackground)
                 switch (theme)
                 {
                     case WindowTheme.Light:
@@ -102,6 +62,21 @@ namespace Chapter.Net.WPF.Theming
 
             return true;
         }
+
+        private static bool IsWindows10OrGreater(int build)
+        {
+            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
+        }
+
+        #endregion
+
+        #region RequestTheme
+
+        /// <summary>
+        ///     Defines the RequestTheme attached dependency property.
+        /// </summary>
+        public static readonly DependencyProperty RequestThemeProperty =
+            DependencyProperty.RegisterAttached("RequestTheme", typeof(WindowTheme), typeof(ThemeManager), new PropertyMetadata(OnRequestThemeChanged));
 
         /// <summary>
         ///     Gets the attached the requested theme from a window.
@@ -123,6 +98,37 @@ namespace Chapter.Net.WPF.Theming
         {
             obj.SetValue(RequestThemeProperty, value);
         }
+
+        private static void OnRequestThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is Window window))
+                throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
+
+            if (window.IsInitialized)
+                SetWindowTheme(window, (WindowTheme)e.NewValue, !SkipSetWindowBackgroundColor);
+            else
+                window.SourceInitialized += OnSourceInitialized;
+        }
+
+        private static void OnSourceInitialized(object sender, EventArgs e)
+        {
+            var window = (Window)sender;
+            window.SourceInitialized -= OnSourceInitialized;
+            SetWindowTheme(window, GetRequestTheme(window), !SkipSetWindowBackgroundColor);
+        }
+
+        #endregion
+
+        #region CompleteTheming
+
+        private static WindowTheme _currentTheme = WindowTheme.System;
+        private static readonly List<Window> _servantWindows = new List<Window>();
+
+        /// <summary>
+        ///     Defines the ObeyThemeManager attached dependency property.
+        /// </summary>
+        public static readonly DependencyProperty ObeyThemeManagerProperty =
+            DependencyProperty.RegisterAttached("ObeyThemeManager", typeof(bool), typeof(ThemeManager), new PropertyMetadata(OnObeyThemeManagerChanged));
 
         /// <summary>
         ///     Gets the indicator if the window is obeying the theme manager.
@@ -150,9 +156,9 @@ namespace Chapter.Net.WPF.Theming
                 throw new InvalidOperationException("Only a window can obey the theme manager.");
 
             if ((bool)e.OldValue)
-                ServantWindows.Remove(window);
+                _servantWindows.Remove(window);
             if ((bool)e.NewValue)
-                ServantWindows.Add(window);
+                _servantWindows.Add(window);
 
             window.Closed += OnClosed;
 
@@ -165,25 +171,7 @@ namespace Chapter.Net.WPF.Theming
         private static void OnClosed(object sender, EventArgs e)
         {
             var window = (Window)sender;
-            ServantWindows.Remove(window);
-        }
-
-        private static void OnRequestThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(d is Window window))
-                throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
-
-            if (window.IsInitialized)
-                SetWindowTheme(window, (WindowTheme)e.NewValue, !SkipSetWindowBackgroundColor);
-            else
-                window.SourceInitialized += OnSourceInitialized;
-        }
-
-        private static void OnSourceInitialized(object sender, EventArgs e)
-        {
-            var window = (Window)sender;
-            window.SourceInitialized -= OnSourceInitialized;
-            SetWindowTheme(window, GetRequestTheme(window), !SkipSetWindowBackgroundColor);
+            _servantWindows.Remove(window);
         }
 
         private static void OnObeyedWindowSourceInitialized(object sender, EventArgs e)
@@ -193,9 +181,32 @@ namespace Chapter.Net.WPF.Theming
             SetWindowTheme(window, _currentTheme, !SkipSetWindowBackgroundColor);
         }
 
-        private static bool IsWindows10OrGreater(int build)
+        /// <summary>
+        ///     Gets or sets if the window background color shall not be set on theme change.
+        /// </summary>
+        /// <value>Default: false.</value>
+        [DefaultValue(false)]
+        public static bool SkipSetWindowBackgroundColor { get; set; }
+
+        /// <summary>
+        ///     Sets the theme to all obeying windows.
+        /// </summary>
+        /// <param name="theme">The theme to use.</param>
+        public static void SetCurrentTheme(WindowTheme theme)
         {
-            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
+            _currentTheme = theme;
+            _servantWindows.ForEach(x => SetWindowTheme(x, _currentTheme, !SkipSetWindowBackgroundColor));
         }
+
+        /// <summary>
+        ///     Gets the current theme used on all the obeying windows.
+        /// </summary>
+        /// <returns></returns>
+        public static WindowTheme GetCurrentTheme()
+        {
+            return _currentTheme;
+        }
+
+        #endregion
     }
 }
