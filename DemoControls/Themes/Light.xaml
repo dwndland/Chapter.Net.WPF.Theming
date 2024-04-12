@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theming="clr-namespace:Chapter.Net.WPF.Theming;assembly=Chapter.Net.WPF.Theming">
+
+    <SolidColorBrush x:Key="ChapterComboBox.Static.Background" Color="#FBFBFB" />
+    <SolidColorBrush x:Key="ChapterComboBox.Static.Foreground" Color="#1B1B1B" />
+    <SolidColorBrush x:Key="ChapterComboBox.Static.BorderBrush" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="ChapterComboBox.Arrow.Static.BorderBrush" Color="#787878" />
+    <SolidColorBrush x:Key="ChapterComboBox.Popup.Static.Background" Color="#FAFAFA" />
+    <SolidColorBrush x:Key="ChapterComboBox.IsMouseOver.Background" Color="#F6F6F6" />
+    <SolidColorBrush x:Key="ChapterComboBox.IsPressed.Background" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="ChapterComboBox.IsPressed.Foreground" Color="#5D5D5D" />
+    <Color x:Key="ChapterComboBox.Popup.Static.Shadow">#000000</Color>
+    <SolidColorBrush x:Key="ChapterComboBox.Disabled.Background" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="ChapterComboBox.Disabled.Foreground" Color="#9D9D9D" />
+    <SolidColorBrush x:Key="ChapterComboBox.Disabled.BorderBrush" Color="#E5E5E5" />
+
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Static.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Static.Foreground" Color="#1A1A1A" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.SelectionIndicator.Static.Background" Color="{theming:AccentColor SystemAccent}" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Selected.Background" Color="#EEF0F1" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.MouseOver.Background" Color="#EDF0F3" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Pressed.Background" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Pressed.Foreground" Color="#5C5C5C" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.MouseOverSelected.Background" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.PressedSelected.Background" Color="#EFEFEF" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.PressedSelected.Foreground" Color="#5B5B5B" />
+    <SolidColorBrush x:Key="ChapterComboBoxItem.Disabled.Foreground" Color="#E5E5E5" />
+
+    <SolidColorBrush x:Key="Button.FocusVisualStyle.BorderBrush" Color="#1B1B1B" />
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FBFBFB" />
+    <SolidColorBrush x:Key="Button.Static.Foreground" Color="#1B1B1B" />
+    <LinearGradientBrush x:Key="Button.Static.BorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#E5E5E5" />
+        <GradientStop Offset="0.93" Color="#E5E5E5" />
+        <GradientStop Offset="0.97" Color="#CCCCCC" />
+        <GradientStop Offset="1" Color="#CCCCCC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#F6F6F6" />
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#5D5D5D" />
+    <SolidColorBrush x:Key="Button.Pressed.BorderBrush" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#9D9D9D" />
+    <SolidColorBrush x:Key="Button.Disabled.BorderBrush" Color="#E5E5E5" />
+
+</ResourceDictionary>

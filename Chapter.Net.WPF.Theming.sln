@@ -5,6 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapter.Net.WPF.Theming", "Chapter.Net.WPF.Theming\Chapter.Net.WPF.Theming.csproj", "{6D9925A2-126D-4392-8F9A-D17E052FE729}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoControls", "DemoControls\DemoControls.csproj", "{4E627700-3099-4FBD-9556-A926FA90F6EB}"
 EndProject
 EndProject
 Global
@@ -17,6 +18,10 @@ Global
 		{6D9925A2-126D-4392-8F9A-D17E052FE729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D9925A2-126D-4392-8F9A-D17E052FE729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D9925A2-126D-4392-8F9A-D17E052FE729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E627700-3099-4FBD-9556-A926FA90F6EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
