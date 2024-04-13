@@ -22,6 +22,22 @@ namespace Chapter.Net.WPF.Theming
     /// </summary>
     public static class ThemeManager
     {
+        #region Common
+
+        private static readonly List<Window> _systemThemeWindows = new List<Window>();
+
+        static ThemeManager()
+        {
+            ColorSetChangeObserver.AddCallback(OnSystemColorChanged);
+        }
+
+        private static void OnSystemColorChanged()
+        {
+            _systemThemeWindows.ForEach(x => SetWindowTheme(x, WindowTheme.System));
+        }
+
+        #endregion
+
         #region SetWindowTheme
 
         /// <summary>
@@ -107,10 +123,17 @@ namespace Chapter.Net.WPF.Theming
                 throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
 
             if (window.IsInitialized)
-                SetWindowTheme(window, (WindowTheme)baseValue, !SkipSetBodyColors);
+            {
+                var theme = (WindowTheme)baseValue;
+                SetWindowTheme(window, theme, !SkipSetBodyColors);
+                _systemThemeWindows.Remove(window);
+                if (theme == WindowTheme.System)
+                    _systemThemeWindows.Add(window);
+            }
             else
                 window.SourceInitialized += OnSourceInitialized;
 
+            window.Closed += OnRequestedWindowClose;
             return baseValue;
         }
 
@@ -118,7 +141,18 @@ namespace Chapter.Net.WPF.Theming
         {
             var window = (Window)sender;
             window.SourceInitialized -= OnSourceInitialized;
-            SetWindowTheme(window, GetRequestTheme(window), !SkipSetBodyColors);
+            var theme = GetRequestTheme(window);
+            SetWindowTheme(window, theme, !SkipSetBodyColors);
+            _systemThemeWindows.Remove(window);
+            if (theme == WindowTheme.System)
+                _systemThemeWindows.Add(window);
+        }
+
+        private static void OnRequestedWindowClose(object sender, EventArgs e)
+        {
+            var window = (Window)sender;
+            window.Closed -= OnRequestedWindowClose;
+            _systemThemeWindows.Remove(window);
         }
 
         #endregion
