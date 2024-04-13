@@ -34,6 +34,8 @@ namespace Chapter.Net.WPF.Theming
         private static void OnSystemColorChanged()
         {
             _systemThemeWindows.ForEach(x => SetWindowTheme(x, WindowTheme.System));
+            if (_currentTheme == WindowTheme.System)
+                SetCurrentTheme(_currentTheme);
         }
 
         #endregion

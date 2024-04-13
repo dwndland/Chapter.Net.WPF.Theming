@@ -20,7 +20,12 @@ public partial class MainWindow
     {
         InitializeComponent();
 
+        // Support auto update of all windows when they are set to system.
+        ColorSetChangeObserver.StartListenForColorChanges(this);
+
+        // All windows obey the ThemeManager, so this is the init for all windows.
         ThemeManager.SetCurrentTheme(WindowTheme.System);
+
         SetBrushes();
     }
 
