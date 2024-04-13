@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added AccentColor markup extension to use the accent colors within color brushes.
 - Added color set change observer to get informed when the theme or accent color on windows got changed.
 - Added ThemedWindow object for more easy usage of themes.
+- Create attached properties for Windows to obey the ThemeManager
+- Allow ThemedWindow object obey the ThemeManager.
+
 ### Supported .Net Versions
 - .Net Core 3.0
 - .Net Framework 4.5

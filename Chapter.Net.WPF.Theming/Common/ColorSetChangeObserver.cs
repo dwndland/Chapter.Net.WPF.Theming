@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Chapter.Net.WinAPI.Data;
@@ -19,11 +20,7 @@ namespace Chapter.Net.WPF.Theming
     public static class ColorSetChangeObserver
     {
         private static WindowObserver _observer;
-
-        /// <summary>
-        ///     Raised when on windows the theme or accent color got changed.
-        /// </summary>
-        public static event EventHandler SystemColorsChanged;
+        private static readonly List<WeakReference<Action>> callbackList = new List<WeakReference<Action>>();
 
         /// <summary>
         ///     Starts listen for theme or color changes on windows.
@@ -52,6 +49,40 @@ namespace Chapter.Net.WPF.Theming
             _observer = null;
         }
 
+        /// <summary>
+        ///     Adds a (weak) callback to get informed when the system color changed;
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        public static void AddCallback(Action callback)
+        {
+            var weakCallback = new WeakReference<Action>(callback);
+            callbackList.Add(weakCallback);
+        }
+
+        /// <summary>
+        ///     Removes a callback if exists.
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        public static void RemoveCallback(Action callback)
+        {
+            callbackList.RemoveAll(x =>
+            {
+                var taken = x.TryGetTarget(out var action);
+                return !taken || action == callback;
+            });
+
+            var weakCallback = new WeakReference<Action>(callback);
+            callbackList.Add(weakCallback);
+        }
+
+        /// <summary>
+        ///     Removes all callbacks.
+        /// </summary>
+        public static void ResetCallbacks()
+        {
+            callbackList.Clear();
+        }
+
         private static void OnWindowSettingChanged(NotifyEventArgs obj)
         {
             if (obj.MessageId == WM.WININICHANGE)
@@ -60,8 +91,20 @@ namespace Chapter.Net.WPF.Theming
                 if (paramName == "ImmersiveColorSet")
                 {
                     AccentColorsCache.Reset();
-                    SystemColorsChanged?.Invoke(null, EventArgs.Empty);
+                    InvokeCallbacks();
                 }
+            }
+        }
+
+        private static void InvokeCallbacks()
+        {
+            for (var index = 0; index < callbackList.Count; index++)
+            {
+                var weakRef = callbackList[index];
+                if (weakRef.TryGetTarget(out var callback))
+                    callback();
+                else
+                    callbackList.RemoveAt(index--);
             }
         }
     }
