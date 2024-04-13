@@ -78,7 +78,7 @@ namespace Chapter.Net.WPF.Theming
         ///     Defines the RequestTheme attached dependency property.
         /// </summary>
         public static readonly DependencyProperty RequestThemeProperty =
-            DependencyProperty.RegisterAttached("RequestTheme", typeof(WindowTheme), typeof(ThemeManager), new PropertyMetadata(OnRequestThemeChanged));
+            DependencyProperty.RegisterAttached("RequestTheme", typeof(WindowTheme), typeof(ThemeManager), new PropertyMetadata(WindowTheme.System, (o, args) => { }, OnRequestThemeChanged));
 
         /// <summary>
         ///     Gets the attached the requested theme from a window.
@@ -101,15 +101,17 @@ namespace Chapter.Net.WPF.Theming
             obj.SetValue(RequestThemeProperty, value);
         }
 
-        private static void OnRequestThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static object OnRequestThemeChanged(DependencyObject d, object baseValue)
         {
             if (!(d is Window window))
                 throw new InvalidOperationException("The RequestTheme can be attached to a window only.");
 
             if (window.IsInitialized)
-                SetWindowTheme(window, (WindowTheme)e.NewValue, !SkipSetBodyColors);
+                SetWindowTheme(window, (WindowTheme)baseValue, !SkipSetBodyColors);
             else
                 window.SourceInitialized += OnSourceInitialized;
+
+            return baseValue;
         }
 
         private static void OnSourceInitialized(object sender, EventArgs e)
