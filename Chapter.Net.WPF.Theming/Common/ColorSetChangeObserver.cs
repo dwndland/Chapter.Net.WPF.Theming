@@ -20,7 +20,7 @@ namespace Chapter.Net.WPF.Theming
     public static class ColorSetChangeObserver
     {
         private static WindowObserver _observer;
-        private static readonly List<WeakReference<Action>> callbackList = new List<WeakReference<Action>>();
+        private static readonly List<WeakReference<Action>> _callbacks = new List<WeakReference<Action>>();
 
         /// <summary>
         ///     Starts listen for theme or color changes on windows.
@@ -56,7 +56,7 @@ namespace Chapter.Net.WPF.Theming
         public static void AddCallback(Action callback)
         {
             var weakCallback = new WeakReference<Action>(callback);
-            callbackList.Add(weakCallback);
+            _callbacks.Add(weakCallback);
         }
 
         /// <summary>
@@ -65,14 +65,13 @@ namespace Chapter.Net.WPF.Theming
         /// <param name="callback">The callback.</param>
         public static void RemoveCallback(Action callback)
         {
-            callbackList.RemoveAll(x =>
+            _callbacks.RemoveAll(x =>
             {
                 var taken = x.TryGetTarget(out var action);
                 return !taken || action == callback;
             });
 
-            var weakCallback = new WeakReference<Action>(callback);
-            callbackList.Add(weakCallback);
+            _callbacks.Add(new WeakReference<Action>(callback));
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         public static void ResetCallbacks()
         {
-            callbackList.Clear();
+            _callbacks.Clear();
         }
 
         private static void OnWindowSettingChanged(NotifyEventArgs obj)
@@ -98,13 +97,13 @@ namespace Chapter.Net.WPF.Theming
 
         private static void InvokeCallbacks()
         {
-            for (var index = 0; index < callbackList.Count; index++)
+            for (var index = 0; index < _callbacks.Count; index++)
             {
-                var weakRef = callbackList[index];
+                var weakRef = _callbacks[index];
                 if (weakRef.TryGetTarget(out var callback))
                     callback();
                 else
-                    callbackList.RemoveAt(index--);
+                    _callbacks.RemoveAt(index--);
             }
         }
     }

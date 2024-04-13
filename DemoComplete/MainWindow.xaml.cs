@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using Chapter.Net.WPF.Theming;

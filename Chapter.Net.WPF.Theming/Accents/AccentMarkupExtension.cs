@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Windows;
 using System.Windows.Markup;
 
 // ReSharper disable once CheckNamespace
@@ -20,6 +22,7 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         protected AccentMarkupExtension()
         {
+            ColorSetChangeObserver.AddCallback(OnSystemColorsChanged);
         }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         /// <param name="accent">The requested accent.</param>
         protected AccentMarkupExtension(Accent accent)
+            : this()
         {
             Accent = accent;
         }
@@ -41,6 +45,22 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         public bool UseForeground { get; set; }
 
+        protected DependencyObject TargetObject { get; private set; }
+
+        protected DependencyProperty TargetProperty { get; private set; }
+
+        /// <inheritdoc />
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget target)
+            {
+                TargetObject = target.TargetObject as DependencyObject;
+                TargetProperty = target.TargetProperty as DependencyProperty;
+            }
+
+            return OnProvideValue();
+        }
+
         /// <summary>
         ///     Resets the internal color cache.
         /// </summary>
@@ -48,5 +68,22 @@ namespace Chapter.Net.WPF.Theming
         {
             AccentColorsCache.Reset();
         }
+
+        /// <summary>
+        ///     Provides the value for the target property.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract object OnProvideValue();
+
+        private void OnSystemColorsChanged()
+        {
+            if (TargetObject != null && TargetProperty != null)
+                Refresh();
+        }
+
+        /// <summary>
+        ///     Updates the color.
+        /// </summary>
+        protected abstract void Refresh();
     }
 }

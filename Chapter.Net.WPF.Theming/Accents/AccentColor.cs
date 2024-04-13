@@ -32,48 +32,33 @@ namespace Chapter.Net.WPF.Theming
         }
 
         /// <inheritdoc />
-        public override object ProvideValue(IServiceProvider serviceProvider)
+        protected override object OnProvideValue()
         {
-            if (UseForeground)
-                switch (Accent)
-                {
-                    case Accent.SystemAccentDark3:
-                        return AccentColorsCache.SystemAccentDark3ForegroundColor.Value;
-                    case Accent.SystemAccentDark2:
-                        return AccentColorsCache.SystemAccentDark2ForegroundColor.Value;
-                    case Accent.SystemAccentDark1:
-                        return AccentColorsCache.SystemAccentDark1ForegroundColor.Value;
-                    case Accent.SystemAccent:
-                        return AccentColorsCache.SystemAccentForegroundColor.Value;
-                    case Accent.SystemAccentLight1:
-                        return AccentColorsCache.SystemAccentLight1ForegroundColor.Value;
-                    case Accent.SystemAccentLight2:
-                        return AccentColorsCache.SystemAccentLight2ForegroundColor.Value;
-                    case Accent.SystemAccentLight3:
-                        return AccentColorsCache.SystemAccentLight3ForegroundColor.Value;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
             switch (Accent)
             {
                 case Accent.SystemAccentDark3:
-                    return AccentColorsCache.SystemAccentDark3Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentDark3ForegroundColor.Value : AccentColorsCache.SystemAccentDark3Color.Value;
                 case Accent.SystemAccentDark2:
-                    return AccentColorsCache.SystemAccentDark2Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentDark2ForegroundColor.Value : AccentColorsCache.SystemAccentDark2Color.Value;
                 case Accent.SystemAccentDark1:
-                    return AccentColorsCache.SystemAccentDark1Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentDark1ForegroundColor.Value : AccentColorsCache.SystemAccentDark1Color.Value;
                 case Accent.SystemAccent:
-                    return AccentColorsCache.SystemAccentColor.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentForegroundColor.Value : AccentColorsCache.SystemAccentColor.Value;
                 case Accent.SystemAccentLight1:
-                    return AccentColorsCache.SystemAccentLight1Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentLight1ForegroundColor.Value : AccentColorsCache.SystemAccentLight1Color.Value;
                 case Accent.SystemAccentLight2:
-                    return AccentColorsCache.SystemAccentLight2Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentLight2ForegroundColor.Value : AccentColorsCache.SystemAccentLight2Color.Value;
                 case Accent.SystemAccentLight3:
-                    return AccentColorsCache.SystemAccentLight3Color.Value;
+                    return UseForeground ? AccentColorsCache.SystemAccentLight3ForegroundColor.Value : AccentColorsCache.SystemAccentLight3Color.Value;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        protected override void Refresh()
+        {
+            if (TargetObject != null && TargetProperty != null)
+                TargetObject.SetValue(TargetProperty, OnProvideValue());
         }
     }
 }
