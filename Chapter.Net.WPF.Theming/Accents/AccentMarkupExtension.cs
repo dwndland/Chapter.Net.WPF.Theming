@@ -77,7 +77,7 @@ namespace Chapter.Net.WPF.Theming
 
         private void OnSystemColorsChanged()
         {
-            if (TargetObject != null && TargetProperty != null)
+            if (TargetObject != null && TargetProperty != null && !TargetObject.IsSealed)
                 Refresh();
         }
 
