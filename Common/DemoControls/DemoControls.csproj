@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Chapter.Net.WPF.Theming\Chapter.Net.WPF.Theming.csproj" />
+    <ProjectReference Include="..\..\Chapter.Net.WPF.Theming\Chapter.Net.WPF.Theming.csproj" />
   </ItemGroup>
 
 </Project>

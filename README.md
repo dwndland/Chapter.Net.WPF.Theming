@@ -12,10 +12,10 @@ Read the current theme from windows. Light or Dark.
 Read all the current accent colors from windows.
 - **AccentBrush**
 Set a particular grade from the current accent color as a brush to a control in xaml.
-AccentBrush.ResetColorCache
+    AccentBrush.ResetColorCache
 - **AccentColor**
-Set a particular grade from the current accent to a color to a brush in xaml.
-AccentColor.ResetColorCache
+Set a particular grade from the current accent to a color to a brush in xaml.        
+    AccentColor.ResetColorCache
 - **ThemeManager.RequestTheme**
 Use xaml attached property to set a specific theme on a window.
 - **ThemeManager.SetWindowTheme**
@@ -31,7 +31,6 @@ Configure the theme globally for all windows by attached properties with possibi
 - **ThemedWindow.ObeyThemeManager + ThemeManager.SetCurrentTheme()**
 Configure the theme globally for all windows by attached properties with possibility for auto theme by windows or manual override using ThemedWindows
 
-TODO: Load and switch theme resource dictionaries at runtime
 ThemeManager.SkipSetBodyColors = true;
 
 ## Getting Started

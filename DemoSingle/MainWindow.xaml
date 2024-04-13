@@ -1,0 +1,152 @@
+﻿<Window x:Class="DemoSingle.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:DemoControls;assembly=DemoControls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:theming="clr-namespace:Chapter.Net.WPF.Theming;assembly=Chapter.Net.WPF.Theming"
+        Title="Features (Single Operations)"
+        Width="1000"
+        Height="550"
+        theming:ThemeManager.RequestTheme="System"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="125" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight3.Background" Color="{theming:AccentColor SystemAccentLight3}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight3.Foreground" Color="{theming:AccentColor SystemAccentLight3, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight2.Background" Color="{theming:AccentColor SystemAccentLight2}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight2.Foreground" Color="{theming:AccentColor SystemAccentLight2, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight1.Background" Color="{theming:AccentColor SystemAccentLight1}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentLight1.Foreground" Color="{theming:AccentColor SystemAccentLight1, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccent.Background" Color="{theming:AccentColor SystemAccent}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccent.Foreground" Color="{theming:AccentColor SystemAccent, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark1.Background" Color="{theming:AccentColor SystemAccentDark1}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark1.Foreground" Color="{theming:AccentColor SystemAccentDark1, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark2.Background" Color="{theming:AccentColor SystemAccentDark2}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark2.Foreground" Color="{theming:AccentColor SystemAccentDark2, UseForeground=True}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark3.Background" Color="{theming:AccentColor SystemAccentDark3}" />
+        <SolidColorBrush x:Key="AccentColor.SystemAccentDark3.Foreground" Color="{theming:AccentColor SystemAccentDark3, UseForeground=True}" />
+    </Window.Resources>
+
+    <StackPanel Margin="40">
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="SystemThemeProvider" />
+        <TextBlock Margin="0,0,0,8" Text="{Binding CurrentSystemTheme}" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="AccentColorProvider" />
+        <TextBlock Margin="0,0,0,8" Text="{Binding AccentColor}" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="AccentBrush" />
+        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+            <TextBlock Background="{theming:AccentBrush SystemAccentLight3}"
+                       Foreground="{theming:AccentBrush SystemAccentLight3,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight3" />
+            <TextBlock Background="{theming:AccentBrush SystemAccentLight2}"
+                       Foreground="{theming:AccentBrush SystemAccentLight2,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight2" />
+            <TextBlock Background="{theming:AccentBrush SystemAccentLight1}"
+                       Foreground="{theming:AccentBrush SystemAccentLight1,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight1" />
+            <TextBlock Background="{theming:AccentBrush SystemAccent}"
+                       Foreground="{theming:AccentBrush SystemAccent,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccent" />
+            <TextBlock Background="{theming:AccentBrush SystemAccentDark1}"
+                       Foreground="{theming:AccentBrush SystemAccentDark1,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark1" />
+            <TextBlock Background="{theming:AccentBrush SystemAccentDark2}"
+                       Foreground="{theming:AccentBrush SystemAccentDark2,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark2" />
+            <TextBlock Background="{theming:AccentBrush SystemAccentDark3}"
+                       Foreground="{theming:AccentBrush SystemAccentDark3,
+                                                        UseForeground=True}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark3" />
+        </StackPanel>
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="AccentBrush" />
+        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentLight3.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentLight3.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight3" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentLight2.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentLight2.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight2" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentLight1.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentLight1.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentLight1" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccent.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccent.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccent" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentDark1.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentDark1.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark1" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentDark2.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentDark2.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark2" />
+            <TextBlock Background="{StaticResource AccentColor.SystemAccentDark3.Background}"
+                       Foreground="{StaticResource AccentColor.SystemAccentDark3.Foreground}"
+                       Style="{StaticResource Text}"
+                       Text="SystemAccentDark3" />
+        </StackPanel>
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="ThemeManager.RequestTheme" />
+        <controls:ChapterButton Margin="0,0,0,8"
+                                HorizontalAlignment="Left"
+                                Click="ShowRequestThemeAttachedWindow"
+                                Content="Show" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="ThemeManager.SetWindowTheme" />
+        <controls:ChapterButton Margin="0,0,0,8"
+                                HorizontalAlignment="Left"
+                                Click="ShowSetWindowThemeWindow"
+                                Content="Show" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="ThemedWindow" />
+        <controls:ChapterButton Margin="0,0,0,8"
+                                HorizontalAlignment="Left"
+                                Click="ShowThemedWindow"
+                                Content="Show" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="ColorSetChangeObserver" />
+        <TextBlock Margin="0,0,0,8" Text="{Binding LastColorSetChange}" />
+    </StackPanel>
+
+</Window>
