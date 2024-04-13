@@ -55,8 +55,7 @@ namespace Chapter.Net.WPF.Theming
         /// <param name="callback">The callback.</param>
         public static void AddCallback(Action callback)
         {
-            var weakCallback = new WeakReference<Action>(callback);
-            _callbacks.Add(weakCallback);
+            _callbacks.Add(new WeakReference<Action>(callback));
         }
 
         /// <summary>
@@ -70,8 +69,6 @@ namespace Chapter.Net.WPF.Theming
                 var taken = x.TryGetTarget(out var action);
                 return !taken || action == callback;
             });
-
-            _callbacks.Add(new WeakReference<Action>(callback));
         }
 
         /// <summary>
