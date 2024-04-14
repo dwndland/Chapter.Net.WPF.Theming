@@ -55,6 +55,7 @@ namespace Chapter.Net.WPF.Theming
             }
         }
 
+        /// <inheritdoc />
         protected override void Refresh()
         {
             if (TargetObject != null && TargetProperty != null)

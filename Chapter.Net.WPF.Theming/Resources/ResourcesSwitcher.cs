@@ -120,7 +120,7 @@ namespace Chapter.Net.WPF.Theming
 
         private static Collection<ResourceDictionary> _target;
         private static ResourceLocation _location;
-        private static WindowTheme _currentTheme;
+        private static WindowTheme? _currentTheme;
         private static readonly Dictionary<object, List<Uri>> _resources = new Dictionary<object, List<Uri>>();
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Chapter.Net.WPF.Theming
         /// <param name="newTheme"></param>
         public static void SwitchResources(WindowTheme newTheme)
         {
-            SwitchResources(null, newTheme);
+            SwitchResources(_currentTheme, newTheme);
         }
 
         /// <summary>
@@ -199,6 +199,8 @@ namespace Chapter.Net.WPF.Theming
 
             if (_resources.TryGetValue(newTheme, out var newResources))
                 LoadResources(_target, _location, newResources.ToArray());
+
+            _currentTheme = newTheme;
         }
 
         #endregion

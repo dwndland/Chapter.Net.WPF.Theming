@@ -45,8 +45,14 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         public bool UseForeground { get; set; }
 
+        /// <summary>
+        ///     The object using the markup extension.
+        /// </summary>
         protected DependencyObject TargetObject { get; private set; }
 
+        /// <summary>
+        ///     The property using the markup extension.
+        /// </summary>
         protected DependencyProperty TargetProperty { get; private set; }
 
         /// <inheritdoc />
