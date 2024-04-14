@@ -67,6 +67,8 @@ namespace Chapter.Net.WPF.Theming
                     return false;
             }
 
+            ResourcesManager.SwitchResources(theme);
+
             if (setBodyColors)
                 switch (theme)
                 {
