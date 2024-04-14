@@ -13,19 +13,8 @@ public partial class App
 {
     public App()
     {
-        SetBrushes();
-    }
-
-    private void SetBrushes()
-    {
-        switch (SystemThemeProvider.GetSystemTheme())
-        {
-            case WindowTheme.Light:
-                ResourcesManager.LoadResources(this, ResourceLocation.End, new Uri("/DemoControls;component/Themes/Light.xaml", UriKind.RelativeOrAbsolute));
-                break;
-            case WindowTheme.Dark:
-                ResourcesManager.LoadResources(this, ResourceLocation.End, new Uri("/DemoControls;component/Themes/Dark.xaml", UriKind.RelativeOrAbsolute));
-                break;
-        }
+        ResourcesManager.RegisterResources(this, ResourceLocation.End, WindowTheme.Light, new Uri("/DemoControls;component/Themes/Light.xaml", UriKind.RelativeOrAbsolute));
+        ResourcesManager.RegisterResources(this, ResourceLocation.End, WindowTheme.Dark, new Uri("/DemoControls;component/Themes/Dark.xaml", UriKind.RelativeOrAbsolute));
+        ResourcesManager.SwitchResources(SystemThemeProvider.GetSystemTheme());
     }
 }

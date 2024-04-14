@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -111,6 +112,93 @@ namespace Chapter.Net.WPF.Theming
         {
             var positionIndicator = target.FirstOrDefault(x => x.Source.OriginalString.EndsWith("ResourcesPosition.xaml"));
             return positionIndicator == null ? target.Count : target.IndexOf(positionIndicator) + 1;
+        }
+
+        #endregion
+
+        #region SwitchTheme
+
+        private static Collection<ResourceDictionary> _target;
+        private static ResourceLocation _location;
+        private static WindowTheme _currentTheme;
+        private static readonly Dictionary<object, List<Uri>> _resources = new Dictionary<object, List<Uri>>();
+
+        /// <summary>
+        ///     Registers resources to use when switch to the theme.
+        /// </summary>
+        /// <param name="target">The target application.</param>
+        /// <param name="location">The position where to add the resources.</param>
+        /// <param name="theme">The theme the resources belong to.</param>
+        /// <param name="resources">The resources to load.</param>
+        public static void RegisterResources(Application target, ResourceLocation location, WindowTheme theme, params Uri[] resources)
+        {
+            RegisterResources(target.Resources, location, theme, resources);
+        }
+
+        /// <summary>
+        ///     Registers resources to use when switch to the theme.
+        /// </summary>
+        /// <param name="target">The target dictionary.</param>
+        /// <param name="location">The position where to add the resources.</param>
+        /// <param name="theme">The theme the resources belong to.</param>
+        /// <param name="resources">The resources to load.</param>
+        public static void RegisterResources(ResourceDictionary target, ResourceLocation location, WindowTheme theme, params Uri[] resources)
+        {
+            RegisterResources(target.MergedDictionaries, location, theme, resources);
+        }
+
+        /// <summary>
+        ///     Registers resources to use when switch to the theme.
+        /// </summary>
+        /// <param name="target">The target collection.</param>
+        /// <param name="location">The position where to add the resources.</param>
+        /// <param name="theme">The theme the resources belong to.</param>
+        /// <param name="resources">The resources to load.</param>
+        public static void RegisterResources(Collection<ResourceDictionary> target, ResourceLocation location, WindowTheme theme, params Uri[] resources)
+        {
+            _target = target;
+            _location = location;
+            _resources[theme] = resources.ToList();
+        }
+
+        /// <summary>
+        ///     Removes all registered resources by the theme.
+        /// </summary>
+        /// <param name="theme">The theme the resources belong to.</param>
+        public static void UnregisterResources(WindowTheme theme)
+        {
+            _resources.Remove(theme);
+        }
+
+        /// <summary>
+        ///     Removes all registered resources.
+        /// </summary>
+        public static void ClearResources()
+        {
+            _resources.Clear();
+        }
+
+        /// <summary>
+        ///     Switches the resources to those know by the theme.
+        /// </summary>
+        /// <param name="newTheme"></param>
+        public static void SwitchResources(WindowTheme newTheme)
+        {
+            SwitchResources(null, newTheme);
+        }
+
+        /// <summary>
+        ///     Switches the resources from one to another theme.
+        /// </summary>
+        /// <param name="oldTheme">The (optional) old theme which resources to remove.</param>
+        /// <param name="newTheme">The new theme which resources to load.</param>
+        public static void SwitchResources(WindowTheme? oldTheme, WindowTheme newTheme)
+        {
+            if (oldTheme != null && _resources.TryGetValue(oldTheme, out var oldResources))
+                RemoveResources(_target, oldResources.ToArray());
+
+            if (_resources.TryGetValue(newTheme, out var newResources))
+                LoadResources(_target, _location, newResources.ToArray());
         }
 
         #endregion
