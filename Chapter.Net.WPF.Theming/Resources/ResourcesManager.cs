@@ -184,7 +184,9 @@ namespace Chapter.Net.WPF.Theming
         /// <param name="newTheme"></param>
         public static void SwitchResources(WindowTheme newTheme)
         {
-            SwitchResources(_currentTheme, newTheme);
+            if (_resources.TryGetValue(newTheme, out var newResources))
+                LoadResources(_target, _location, newResources.ToArray());
+            _currentTheme = newTheme;
         }
 
         /// <summary>
@@ -192,15 +194,12 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         /// <param name="oldTheme">The (optional) old theme which resources to remove.</param>
         /// <param name="newTheme">The new theme which resources to load.</param>
-        public static void SwitchResources(WindowTheme? oldTheme, WindowTheme newTheme)
+        public static void SwitchResources(WindowTheme oldTheme, WindowTheme newTheme)
         {
-            if (oldTheme != null && _resources.TryGetValue(oldTheme, out var oldResources))
+            if (_resources.TryGetValue(oldTheme, out var oldResources))
                 RemoveResources(_target, oldResources.ToArray());
 
-            if (_resources.TryGetValue(newTheme, out var newResources))
-                LoadResources(_target, _location, newResources.ToArray());
-
-            _currentTheme = newTheme;
+            SwitchResources(newTheme);
         }
 
         #endregion
