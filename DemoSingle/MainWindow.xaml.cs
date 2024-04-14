@@ -17,6 +17,8 @@ public partial class MainWindow : INotifyPropertyChanged
     private string _accentColor;
     private string _currentSystemTheme;
     private string _lastColorSetChange;
+    private Uri _light = new("/DemoControls;component/Themes/Light.xaml", UriKind.RelativeOrAbsolute);
+    private Uri _dark = new("/DemoControls;component/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
 
     public MainWindow()
     {
@@ -88,5 +90,17 @@ public partial class MainWindow : INotifyPropertyChanged
     private void OnColorSetChanged()
     {
         LastColorSetChange = DateTime.Now.ToString();
+    }
+
+    private void SwitchToLightResources(object sender, RoutedEventArgs e)
+    {
+        ResourcesManager.RemoveResources(Application.Current, _dark);
+        ResourcesManager.LoadResources(Application.Current, ResourceLocation.End, _light);
+    }
+
+    private void SwitchToDarkResources(object sender, RoutedEventArgs e)
+    {
+        ResourcesManager.RemoveResources(Application.Current, _light);
+        ResourcesManager.LoadResources(Application.Current, ResourceLocation.End, _dark);
     }
 }

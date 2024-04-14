@@ -7,7 +7,7 @@
         xmlns:theming="clr-namespace:Chapter.Net.WPF.Theming;assembly=Chapter.Net.WPF.Theming"
         Title="Features (Single Operations)"
         Width="1000"
-        Height="550"
+        Height="620"
         theming:ThemeManager.RequestTheme="System"
         mc:Ignorable="d">
     <Window.Resources>
@@ -147,6 +147,18 @@
                    FontWeight="Bold"
                    Text="ColorSetChangeObserver" />
         <TextBlock Margin="0,0,0,8" Text="{Binding LastColorSetChange}" />
+
+        <TextBlock Margin="0,0,0,2"
+                   FontWeight="Bold"
+                   Text="ResourcesManager" />
+        <StackPanel Margin="0,0,0,8"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+            <controls:ChapterButton Margin="0,0,8,0"
+                                    Click="SwitchToLightResources"
+                                    Content="Light" />
+            <controls:ChapterButton Click="SwitchToDarkResources" Content="Dark" />
+        </StackPanel>
     </StackPanel>
 
 </Window>

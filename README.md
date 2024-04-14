@@ -24,6 +24,8 @@ Use code to set a specific theme on a window.
 Use the ThemedWindow to create a window that has a build in functionality to set a particular theme.
 - **ColorSetChangeObserver**
 Get informed when on windows the theme or accent color
+- **Add/Remove Theme Resources**
+- Use the ResourcesManager to add and remove theme resources.
 
 ## Features (Complete Operations)
 - **ThemeManager.ObeyThemeManager + ThemeManager.SetCurrentTheme()**
