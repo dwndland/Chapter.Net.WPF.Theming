@@ -21,15 +21,16 @@ namespace Chapter.Net.WPF.Theming
         ///     Gets the windows accent color.
         /// </summary>
         /// <param name="accent">The concrete accent to get.</param>
+        /// <param name="alpha">The optional alpha channel.</param>
         /// <returns>The configured accent color.</returns>
-        public static Color GetAccentColor(Accent accent)
+        public static Color GetAccentColor(Accent accent, byte alpha = 255)
         {
             var marshalledName = Marshal.StringToHGlobalUni("Immersive" + accent);
             var colorType = UxTheme.GetImmersiveColorTypeFromName(marshalledName);
             Marshal.FreeHGlobal(marshalledName);
             var nativeColor = UxTheme.GetImmersiveColorFromColorSetEx(0, colorType, false, 0);
             return Color.FromArgb(
-                (byte)((0xFF000000 & nativeColor) >> 24),
+                alpha != 255 ? alpha : (byte)((0xFF000000 & nativeColor) >> 24),
                 (byte)((0x000000FF & nativeColor) >> 0),
                 (byte)((0x0000FF00 & nativeColor) >> 8),
                 (byte)((0x00FF0000 & nativeColor) >> 16));

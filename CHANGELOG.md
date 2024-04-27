@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.0] - 2024-04-27
+## Added
+- Added possibility to set the alpha channel on the accent colors.
 ## Removed
 - Remove set of the window body color by theme.
 ### Supported .Net Versions

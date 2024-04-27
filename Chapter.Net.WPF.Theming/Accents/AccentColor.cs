@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 
@@ -15,6 +17,13 @@ namespace Chapter.Net.WPF.Theming
     /// </summary>
     public class AccentColor : AccentMarkupExtension
     {
+        /// <summary>
+        /// Gets or sets the alpha value.
+        /// </summary>
+        /// <value>Default: 255.</value>
+        [DefaultValue(255)]
+        public byte Alpha { get; set; } = 255;
+
         /// <summary>
         ///     Creates a new AccentMarkupExtension.
         /// </summary>
@@ -33,6 +42,12 @@ namespace Chapter.Net.WPF.Theming
 
         /// <inheritdoc />
         protected override object OnProvideValue()
+        {
+            var color = GetColor();
+            return Alpha == 255 ? color : Color.FromArgb(Alpha, color.R, color.G, color.B);
+        }
+
+        private Color GetColor()
         {
             switch (Accent)
             {

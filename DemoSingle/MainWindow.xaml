@@ -89,7 +89,7 @@
 
         <TextBlock Margin="0,0,0,2"
                    FontWeight="Bold"
-                   Text="AccentBrush" />
+                   Text="AccentColor" />
         <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
             <TextBlock Background="{StaticResource AccentColor.SystemAccentLight3.Background}"
                        Foreground="{StaticResource AccentColor.SystemAccentLight3.Foreground}"
