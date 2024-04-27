@@ -8,6 +8,8 @@
         Width="500"
         Height="400"
         theming:ThemeManager.RequestTheme="Dark"
+        Background="{DynamicResource Window.Static.Background}"
+        Foreground="{DynamicResource Window.Static.Foreground}"
         mc:Ignorable="d">
 
     <TextBlock HorizontalAlignment="Center"

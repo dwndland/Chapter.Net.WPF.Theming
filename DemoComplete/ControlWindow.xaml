@@ -7,6 +7,8 @@
                       Title="ThemeWindow"
                       Width="500"
                       Height="400"
+                      Background="{DynamicResource Window.Static.Background}"
+                      Foreground="{DynamicResource Window.Static.Foreground}"
                       ObeyThemeManager="True"
                       mc:Ignorable="d">
 

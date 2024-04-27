@@ -6,10 +6,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
 using Chapter.Net.WinAPI;
 using Chapter.Net.WinAPI.Data;
 
@@ -47,10 +45,9 @@ namespace Chapter.Net.WPF.Theming
         /// </summary>
         /// <param name="window">The window to modify.</param>
         /// <param name="theme">The theme to use.</param>
-        /// <param name="setBodyColors">Defines if the window background shall be set as well.</param>
         /// <remarks>The window source must be initialized.</remarks>
         /// <returns>True of the theme got applied to the window; otherwise false.</returns>
-        public static bool SetWindowTheme(Window window, WindowTheme theme, bool setBodyColors = true)
+        public static bool SetWindowTheme(Window window, WindowTheme theme)
         {
             if (theme == WindowTheme.System)
                 theme = SystemThemeProvider.GetSystemTheme();
@@ -68,20 +65,6 @@ namespace Chapter.Net.WPF.Theming
             }
 
             ResourcesManager.SwitchResources(theme);
-
-            if (setBodyColors)
-                switch (theme)
-                {
-                    case WindowTheme.Light:
-                        window.Background = new SolidColorBrush { Color = Color.FromRgb(243, 243, 243) };
-                        window.Foreground = new SolidColorBrush { Color = Colors.Black };
-                        break;
-                    case WindowTheme.Dark:
-                        window.Background = new SolidColorBrush { Color = Color.FromRgb(32, 32, 32) };
-                        window.Foreground = new SolidColorBrush { Color = Colors.White };
-                        break;
-                }
-
             return true;
         }
 
@@ -129,7 +112,7 @@ namespace Chapter.Net.WPF.Theming
             if (window.IsInitialized)
             {
                 var theme = (WindowTheme)baseValue;
-                SetWindowTheme(window, theme, !SkipSetBodyColors);
+                SetWindowTheme(window, theme);
                 _systemThemeWindows.Remove(window);
                 if (theme == WindowTheme.System)
                     _systemThemeWindows.Add(window);
@@ -146,7 +129,7 @@ namespace Chapter.Net.WPF.Theming
             var window = (Window)sender;
             window.SourceInitialized -= OnSourceInitialized;
             var theme = GetRequestTheme(window);
-            SetWindowTheme(window, theme, !SkipSetBodyColors);
+            SetWindowTheme(window, theme);
             _systemThemeWindows.Remove(window);
             if (theme == WindowTheme.System)
                 _systemThemeWindows.Add(window);
@@ -205,7 +188,7 @@ namespace Chapter.Net.WPF.Theming
             window.Closed += OnClosed;
 
             if (window.IsInitialized)
-                SetWindowTheme(window, _currentTheme, !SkipSetBodyColors);
+                SetWindowTheme(window, _currentTheme);
             else
                 window.SourceInitialized += OnObeyedWindowSourceInitialized;
         }
@@ -220,15 +203,8 @@ namespace Chapter.Net.WPF.Theming
         {
             var window = (Window)sender;
             window.SourceInitialized -= OnObeyedWindowSourceInitialized;
-            SetWindowTheme(window, _currentTheme, !SkipSetBodyColors);
+            SetWindowTheme(window, _currentTheme);
         }
-
-        /// <summary>
-        ///     Gets or sets if the window background color shall not be set on theme change.
-        /// </summary>
-        /// <value>Default: false.</value>
-        [DefaultValue(false)]
-        public static bool SkipSetBodyColors { get; set; }
 
         /// <summary>
         ///     Sets the theme to all obeying windows.
@@ -237,7 +213,7 @@ namespace Chapter.Net.WPF.Theming
         public static void SetCurrentTheme(WindowTheme theme)
         {
             _currentTheme = theme;
-            _servantWindows.ForEach(x => SetWindowTheme(x, _currentTheme, !SkipSetBodyColors));
+            _servantWindows.ForEach(x => SetWindowTheme(x, _currentTheme));
         }
 
         /// <summary>

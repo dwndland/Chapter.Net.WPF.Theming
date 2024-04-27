@@ -9,6 +9,8 @@
         Width="800"
         Height="450"
         theming:ThemeManager.ObeyThemeManager="True"
+        Background="{DynamicResource Window.Static.Background}"
+        Foreground="{DynamicResource Window.Static.Foreground}"
         mc:Ignorable="d">
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

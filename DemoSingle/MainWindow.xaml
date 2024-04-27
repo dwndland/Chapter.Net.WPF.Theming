@@ -9,6 +9,8 @@
         Width="1000"
         Height="620"
         theming:ThemeManager.RequestTheme="System"
+        Background="{DynamicResource Window.Static.Background}"
+        Foreground="{DynamicResource Window.Static.Foreground}"
         mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="Text" TargetType="{x:Type TextBlock}">
