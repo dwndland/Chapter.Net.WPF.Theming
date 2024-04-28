@@ -7,10 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-04-28
+### Fixed
+- Change the maintain of the callbacks in the ColorSetChangeObserver from weak references to direct references. Callbacks are marked as dead too fast.
+### Supported .Net Versions
+- .Net Core 3.0
+- .Net Framework 4.5
+- .Net 5 (Windows)
+- .Net 6 (Windows)
+- .Net 7 (Windows)
+- .Net 8 (Windows)
+
 ## [1.1.0] - 2024-04-27
-## Added
+### Added
 - Added possibility to set the alpha channel on the accent colors.
-## Removed
+### Removed
 - Remove set of the window body color by theme.
 ### Supported .Net Versions
 - .Net Core 3.0

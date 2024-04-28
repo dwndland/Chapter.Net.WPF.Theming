@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net45;net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>David Wendland</Authors>
     <Description>Brings features to work with the windows themes and accent colors under WPF.</Description>
     <Copyright>Copyright (c) 2024 David Wendland</Copyright>

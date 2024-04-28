@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Chapter.Net.WinAPI.Data;
@@ -20,7 +21,7 @@ namespace Chapter.Net.WPF.Theming
     public static class ColorSetChangeObserver
     {
         private static WindowObserver _observer;
-        private static readonly List<WeakReference<Action>> _callbacks = new List<WeakReference<Action>>();
+        private static readonly List<Action> _callbacks = new List<Action>();
 
         /// <summary>
         ///     Starts listen for theme or color changes on windows.
@@ -50,12 +51,12 @@ namespace Chapter.Net.WPF.Theming
         }
 
         /// <summary>
-        ///     Adds a (weak) callback to get informed when the system color changed;
+        ///     Adds a callback to get informed when the system color changed;
         /// </summary>
         /// <param name="callback">The callback.</param>
         public static void AddCallback(Action callback)
         {
-            _callbacks.Add(new WeakReference<Action>(callback));
+            _callbacks.Add(callback);
         }
 
         /// <summary>
@@ -64,11 +65,7 @@ namespace Chapter.Net.WPF.Theming
         /// <param name="callback">The callback.</param>
         public static void RemoveCallback(Action callback)
         {
-            _callbacks.RemoveAll(x =>
-            {
-                var taken = x.TryGetTarget(out var action);
-                return !taken || action == callback;
-            });
+            _callbacks.Remove(callback);
         }
 
         /// <summary>
@@ -94,14 +91,8 @@ namespace Chapter.Net.WPF.Theming
 
         private static void InvokeCallbacks()
         {
-            for (var index = 0; index < _callbacks.Count; index++)
-            {
-                var weakRef = _callbacks[index];
-                if (weakRef.TryGetTarget(out var callback))
-                    callback();
-                else
-                    _callbacks.RemoveAt(index--);
-            }
+            var currentCallbacks = _callbacks.ToList(); // Copy to allow adding of new or remove od olf callbacks while looping.
+            currentCallbacks.ForEach(x => x.Invoke());
         }
     }
 }
