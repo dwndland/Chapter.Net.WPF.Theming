@@ -9,57 +9,56 @@ using System.Windows;
 
 // ReSharper disable once CheckNamespace
 
-namespace Chapter.Net.WPF.Theming
+namespace Chapter.Net.WPF.Theming;
+
+/// <summary>
+///     A window which provides a way to request a theme for it directly.
+/// </summary>
+public class ThemedWindow : Window
 {
     /// <summary>
-    ///     A window which provides a way to request a theme for it directly.
+    ///     Defines the RequestTheme dependency property.
     /// </summary>
-    public class ThemedWindow : Window
+    public static readonly DependencyProperty RequestThemeProperty =
+        DependencyProperty.Register(nameof(RequestTheme), typeof(WindowTheme), typeof(ThemedWindow), new PropertyMetadata(OnWindowThemeChanged));
+
+    /// <summary>
+    ///     Defines the ObeyThemeManager dependency property.
+    /// </summary>
+    public static readonly DependencyProperty ObeyThemeManagerProperty =
+        DependencyProperty.Register(nameof(ObeyThemeManager), typeof(bool), typeof(ThemedWindow), new PropertyMetadata(OnObeyThemeManagerChanged));
+
+    /// <summary>
+    ///     Gets or sets the theme the window shall have.
+    /// </summary>
+    /// <value>Default: WindowTheme.System.</value>
+    [DefaultValue(WindowTheme.System)]
+    public WindowTheme RequestTheme
     {
-        /// <summary>
-        ///     Defines the RequestTheme dependency property.
-        /// </summary>
-        public static readonly DependencyProperty RequestThemeProperty =
-            DependencyProperty.Register(nameof(RequestTheme), typeof(WindowTheme), typeof(ThemedWindow), new PropertyMetadata(OnWindowThemeChanged));
+        get => (WindowTheme)GetValue(RequestThemeProperty);
+        set => SetValue(RequestThemeProperty, value);
+    }
 
-        /// <summary>
-        ///     Defines the ObeyThemeManager dependency property.
-        /// </summary>
-        public static readonly DependencyProperty ObeyThemeManagerProperty =
-            DependencyProperty.Register(nameof(ObeyThemeManager), typeof(bool), typeof(ThemedWindow), new PropertyMetadata(OnObeyThemeManagerChanged));
+    /// <summary>
+    ///     Gets or sets if the window has to obey the theme manager.
+    /// </summary>
+    /// <value>Default: false.</value>
+    [DefaultValue(false)]
+    public bool ObeyThemeManager
+    {
+        get => (bool)GetValue(ObeyThemeManagerProperty);
+        set => SetValue(ObeyThemeManagerProperty, value);
+    }
 
-        /// <summary>
-        ///     Gets or sets the theme the window shall have.
-        /// </summary>
-        /// <value>Default: WindowTheme.System.</value>
-        [DefaultValue(WindowTheme.System)]
-        public WindowTheme RequestTheme
-        {
-            get => (WindowTheme)GetValue(RequestThemeProperty);
-            set => SetValue(RequestThemeProperty, value);
-        }
+    private static void OnWindowThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var window = (Window)d;
+        ThemeManager.SetRequestTheme(window, (WindowTheme)e.NewValue);
+    }
 
-        /// <summary>
-        ///     Gets or sets if the window has to obey the theme manager.
-        /// </summary>
-        /// <value>Default: false.</value>
-        [DefaultValue(false)]
-        public bool ObeyThemeManager
-        {
-            get => (bool)GetValue(ObeyThemeManagerProperty);
-            set => SetValue(ObeyThemeManagerProperty, value);
-        }
-
-        private static void OnWindowThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = (Window)d;
-            ThemeManager.SetRequestTheme(window, (WindowTheme)e.NewValue);
-        }
-
-        private static void OnObeyThemeManagerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = (Window)d;
-            ThemeManager.SetObeyThemeManager(window, (bool)e.NewValue);
-        }
+    private static void OnObeyThemeManagerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var window = (Window)d;
+        ThemeManager.SetObeyThemeManager(window, (bool)e.NewValue);
     }
 }

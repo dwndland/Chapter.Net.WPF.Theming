@@ -6,46 +6,45 @@
 
 // ReSharper disable once CheckNamespace
 
-namespace Chapter.Net.WPF.Theming
+namespace Chapter.Net.WPF.Theming;
+
+/// <summary>
+///     Defines an accent color.
+/// </summary>
+public enum Accent
 {
     /// <summary>
-    ///     Defines an accent color.
+    ///     The darkest accent color.
     /// </summary>
-    public enum Accent
-    {
-        /// <summary>
-        ///     The darkest accent color.
-        /// </summary>
-        SystemAccentDark3,
+    SystemAccentDark3,
 
-        /// <summary>
-        ///     The darker accent color.
-        /// </summary>
-        SystemAccentDark2,
+    /// <summary>
+    ///     The darker accent color.
+    /// </summary>
+    SystemAccentDark2,
 
-        /// <summary>
-        ///     The dark accent color.
-        /// </summary>
-        SystemAccentDark1,
+    /// <summary>
+    ///     The dark accent color.
+    /// </summary>
+    SystemAccentDark1,
 
-        /// <summary>
-        ///     The accent color.
-        /// </summary>
-        SystemAccent,
+    /// <summary>
+    ///     The accent color.
+    /// </summary>
+    SystemAccent,
 
-        /// <summary>
-        ///     The light accent color.
-        /// </summary>
-        SystemAccentLight1,
+    /// <summary>
+    ///     The light accent color.
+    /// </summary>
+    SystemAccentLight1,
 
-        /// <summary>
-        ///     The lighter accent color.
-        /// </summary>
-        SystemAccentLight2,
+    /// <summary>
+    ///     The lighter accent color.
+    /// </summary>
+    SystemAccentLight2,
 
-        /// <summary>
-        ///     The lightest accent color.
-        /// </summary>
-        SystemAccentLight3
-    }
+    /// <summary>
+    ///     The lightest accent color.
+    /// </summary>
+    SystemAccentLight3
 }

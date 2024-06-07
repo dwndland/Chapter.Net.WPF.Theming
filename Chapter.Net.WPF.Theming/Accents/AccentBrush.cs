@@ -8,41 +8,40 @@ using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 
-namespace Chapter.Net.WPF.Theming
+namespace Chapter.Net.WPF.Theming;
+
+/// <summary>
+///     Provides an accent as a brush.
+/// </summary>
+public class AccentBrush : AccentColor
 {
     /// <summary>
-    ///     Provides an accent as a brush.
+    ///     Creates a new AccentMarkupExtension.
     /// </summary>
-    public class AccentBrush : AccentColor
+    public AccentBrush()
     {
-        /// <summary>
-        ///     Creates a new AccentMarkupExtension.
-        /// </summary>
-        public AccentBrush()
-        {
-        }
+    }
 
-        /// <summary>
-        ///     Creates a new AccentMarkupExtension.
-        /// </summary>
-        /// <param name="accent">The requested accent.</param>
-        public AccentBrush(Accent accent)
-            : base(accent)
-        {
-        }
+    /// <summary>
+    ///     Creates a new AccentMarkupExtension.
+    /// </summary>
+    /// <param name="accent">The requested accent.</param>
+    public AccentBrush(Accent accent)
+        : base(accent)
+    {
+    }
 
-        /// <inheritdoc />
-        protected override object OnProvideValue()
-        {
-            var color = (Color)base.OnProvideValue();
-            return new SolidColorBrush(color);
-        }
+    /// <inheritdoc />
+    protected override object OnProvideValue()
+    {
+        var color = (Color)base.OnProvideValue();
+        return new SolidColorBrush(color);
+    }
 
-        /// <inheritdoc />
-        protected override void Refresh()
-        {
-            if (TargetObject != null && TargetProperty != null)
-                TargetObject.SetValue(TargetProperty, OnProvideValue());
-        }
+    /// <inheritdoc />
+    protected override void Refresh()
+    {
+        if (TargetObject != null && TargetProperty != null)
+            TargetObject.SetValue(TargetProperty, OnProvideValue());
     }
 }
