@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="my-libraries">
+// <copyright file="App.xaml.cs" company="dwndland">
 //     Copyright (c) David Wendland. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
 
-using Chapter.Net.WPF.Theming;
 using System;
+using Chapter.Net.WPF.Theming;
 
 namespace DemoComplete;
 

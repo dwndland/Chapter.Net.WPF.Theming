@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="my-libraries">
+// <copyright file="MainWindow.xaml.cs" company="dwndland">
 //     Copyright (c) David Wendland. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------
@@ -16,9 +16,9 @@ public partial class MainWindow : INotifyPropertyChanged
 {
     private string _accentColor;
     private string _currentSystemTheme;
+    private readonly Uri _dark = new("/DemoControls;component/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
     private string _lastColorSetChange;
-    private Uri _light = new("/DemoControls;component/Themes/Light.xaml", UriKind.RelativeOrAbsolute);
-    private Uri _dark = new("/DemoControls;component/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
+    private readonly Uri _light = new("/DemoControls;component/Themes/Light.xaml", UriKind.RelativeOrAbsolute);
 
     public MainWindow()
     {

@@ -7,7 +7,7 @@
     <Authors>David Wendland</Authors>
     <Description>Brings features to work with the windows themes and accent colors under WPF.</Description>
     <Copyright>Copyright (c) 2024 David Wendland</Copyright>
-    <PackageProjectUrl>https://github.com/dwndlnd/Chapter.Net.WPF.Theming</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dwndland/Chapter.Net.WPF.Theming</PackageProjectUrl>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
