@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <Authors>David Wendland</Authors>
     <Description>Brings features to work with the windows themes and accent colors under WPF.</Description>
     <Copyright>Copyright (c) 2024 David Wendland</Copyright>
@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Chapter.Net.WPF" Version="3.0.0" />
+    <PackageReference Include="Chapter.Net.WPF" Version="3.2.0" />
   </ItemGroup>
 
 </Project>
