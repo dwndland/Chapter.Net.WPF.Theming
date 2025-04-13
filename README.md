@@ -3,7 +3,7 @@
 # Chapter.Net.WPF.Theming Library
 
 ## Overview
-Brings features to work with the windows themes and accent colors under WPF.
+Chapter.Net.WPF.Theming is a library that simplifies working with themes and accent colors, enabling easy customization of the visual style in WPF applications.
 
 ## Features (Single Operations)
 - **SystemThemeProvider:** Read the current theme from windows. Light or Dark.
